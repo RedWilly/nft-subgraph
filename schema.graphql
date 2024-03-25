@@ -16,3 +16,47 @@ type Collection @entity {
   name: String
   symbol: String
 }
+
+# Marketplace entity
+
+type Listing @entity {
+  id: ID!
+  erc721Address: Bytes!
+  tokenId: BigInt!
+  seller: Bytes!
+  price: BigInt!
+  expireTimestamp: BigInt!
+  listedTimestamp: BigInt!
+  status: String!
+}
+
+type Sale @entity {
+  id: ID!
+  erc721Address: Bytes!
+  tokenId: BigInt!
+  buyer: Bytes!
+  seller: Bytes!
+  price: BigInt!
+  serviceFee: BigInt
+  royaltyFee: BigInt
+  timestamp: BigInt!
+  status: String!
+  txid: String! # New field to store the transaction ID
+}
+
+type Bid @entity {
+  id: ID!
+  erc721Address: Bytes!
+  tokenId: BigInt!
+  bidder: Bytes!
+  value: BigInt!
+  expireTimestamp: BigInt!
+  status: String!
+}
+
+type CollectionStat @entity {
+  id: ID!
+  floorPrice: BigInt!
+  totalVolumeTraded: BigInt! # Existing field for tracking total volume, assuming in ETH
+  totalVolumeTradedWETH: BigInt! # New field for tracking total volume in WETH/WBNB/USDT
+}

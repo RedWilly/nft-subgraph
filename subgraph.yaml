@@ -1,18 +1,52 @@
-specVersion: 0.0.2
+specVersion: 0.0.4
 description: Testing NFT indexing
 repository: https://github.com/graphprotocol/example-subgraph
 schema:
   file: ./schema.graphql
 dataSources:
-  - name: ERC721
-    kind: ethereum/contract
-    network: mainnet
+  - kind: ethereum
+    name: NFTKEYMarketplaceV2
+    network: blast-mainnet # Change this to the network your contract is deployed on
     source:
-      abi: ERC721
-      startBlock: 13671310
+      address: "0x18566ffC1c8e455B7B802374Fb4857Fdf11F46D3" #"0x308b43D015Ac2bf158e7DfFe08a1630A371c81E4" testnet The address of the NFTKEYMarketplaceV2 contract
+      abi: NFTKEYMarketplaceV2
+      startBlock: 0 # The block in which the contract was deployed
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Listing
+        - Sale
+        - Bid
+      abis:
+        - name: NFTKEYMarketplaceV2
+          file: ./abis/NFTKEYMarketplaceV2.json
+      eventHandlers:
+        - event: TokenListed(indexed address,indexed uint256,(uint256,uint256,address,uint256))
+          handler: handleTokenListed
+        - event: TokenDelisted(indexed address,indexed uint256,(uint256,uint256,address,uint256))
+          handler: handleTokenDelisted
+        - event: TokenBought(indexed address,indexed uint256,indexed address,(uint256,uint256,address,uint256),uint256,uint256)
+          handler: handleTokenBought
+        - event: TokenBidEntered(indexed address,indexed uint256,(uint256,uint256,address,uint256))
+          handler: handleTokenBidEntered
+        - event: TokenBidWithdrawn(indexed address,indexed uint256,(uint256,uint256,address,uint256))
+          handler: handleTokenBidWithdrawn
+        - event: TokenBidAccepted(indexed address,indexed uint256,indexed address,(uint256,uint256,address,uint256),uint256,uint256)
+          handler: handleTokenBidAccepted
+      #file: ./src/mapping.ts
+      file: ./src/market.ts
+      
+  - name: ERC721
+    kind: ethereum/contract
+    network: blast-mainnet
+    source:
+      abi: ERC721
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./src/erc721.ts
       entities:

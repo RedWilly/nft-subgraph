@@ -1,0 +1,2 @@
+npx graph deploy --studio nftindex
+zip -r archive_name.zip . -x "node_modules/*"

@@ -2,16 +2,15 @@
   "name": "nft-subgraph",
   "version": "0.1.0",
   "scripts": {
-    "create": "graph create FrederikBolding/nft-subgraph --node https://api.thegraph.com/deploy/",
+    "create": "graph create redwilly/nftindex --node https://api.studio.thegraph.com/deploy/",
     "create-local": "graph create FrederikBolding/nft-subgraph --node http://127.0.0.1:8020",
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy FrederikBolding/nft-subgraph --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
-    "deploy-local": "graph deploy FrederikBolding/nft-subgraph --ipfs http://localhost:5001 --node http://127.0.0.1:8020"
+    "deploy": "graph deploy redwilly/nftindex --ipfs https://api.thegraph.com/ipfs/ --node https://api.studio.thegraph.com/deploy/"
   },
   "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.23.2",
-    "@graphprotocol/graph-ts": "^0.23.1"
+    "@graphprotocol/graph-cli": "^0.63.1",
+    "@graphprotocol/graph-ts": "^0.32.0"
   },
   "dependencies": {
     "as-base64": "^0.2.0"
